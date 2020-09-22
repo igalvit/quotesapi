@@ -3,9 +3,17 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Flynsarmy\CsvSeeder\CsvSeeder;
+use Illuminate\Support\Facades\DB;
 
-class AuthorSeeder extends Seeder
+class AuthorSeeder extends CsvSeeder
 {
+    public function __construct()
+    {
+        $this->table ='authors';
+        $this->filename = base_path().'/database/seeds/authors.csv';
+        $this->timestamps = true;
+    }
     /**
      * Run the database seeds.
      *
@@ -13,6 +21,8 @@ class AuthorSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::disableQueryLog();
+        DB::table($this->table)->truncate();
+        parent::run();
     }
 }
