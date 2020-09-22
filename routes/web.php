@@ -13,6 +13,6 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->get('/random', 'QuoteController@oneRandomQuote');
+$router->get('/categories', 'CategoryController@listCategories');
+$router->get('/authors', 'AuthorController@listAuthors');
