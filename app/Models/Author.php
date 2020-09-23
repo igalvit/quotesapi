@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Author extends Model
 {
-    protected $hidden = array('id', 'created_at', 'updated_at');
+    protected $hidden = array('created_at', 'updated_at');
 
-    public function quotes()
+    public function quotesSaid()
     {
         return $this->hasMany('App\Models\Quote');
     }

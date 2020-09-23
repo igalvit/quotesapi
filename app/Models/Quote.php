@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quote extends Model
 {
-    protected $hidden = array('id', 'author_id', 'category_id', 'created_at', 'updated_at');
+    protected $hidden = array('author_id', 'category_id', 'created_at', 'updated_at');
     
     public function author()
     {

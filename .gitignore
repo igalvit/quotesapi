@@ -8,3 +8,4 @@ Homestead.json
 Homestead.yaml
 /database/database.sqlite
 /database/seeds/quotes_all.ods
+launch.json
