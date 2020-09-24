@@ -16,7 +16,6 @@
 use Illuminate\Http\RedirectResponse;
 
 $router->get('/', function () {
-    //return File::get(public_path() . '/doc.html');
     return redirect('doc.html');
 });
 $router->group(['prefix'=> 'api/v1'], function () use($router) {
