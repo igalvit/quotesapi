@@ -14,16 +14,7 @@ class AuthorController extends Controller
 
     public function listQuotesByAuthor($id)
     {
-        $authorExists = Author::find($id);
-        if ($authorExists)
-        {
-            return $quotes = Author::findOrFail($id)->quotesSaid()->simplePaginate(10);
-        }
-        else 
-        {
-            return response()->json([
-                'error' => "Author with id $id not found.",
-            ], 404);
-        }
+        $authorExists = Author::findOrFail($id)->id;
+        return $quotes = Author::findOrFail($id)->quotesSaid()->simplePaginate(10);
     }
 }

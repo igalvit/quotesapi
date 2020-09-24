@@ -14,16 +14,7 @@ class CategoryController extends Controller
 
     public function listQuotesByCategory($category)
     {
-        $categoryExists = Category::where('category','=', $category)->first();
-        if ($categoryExists)
-        {
-            $id = $categoryExists->id;
-            return $quotes = Category::find($id)->phrases()->simplePaginate(10);
-        }
-        else{
-            return response()->json([
-                'message' => "Category $category not found",
-            ], 404);
-        }
+        $categoryExists = Category::where('category','=', $category)->firstOrFail();
+        return $quotes = Category::find($categoryExists->id)->phrases()->simplePaginate(10);
     }
 }
