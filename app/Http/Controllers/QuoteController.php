@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Quote;
-use App\Models\Category;
-use App\Models\Author;
 
 class QuoteController extends Controller
 {

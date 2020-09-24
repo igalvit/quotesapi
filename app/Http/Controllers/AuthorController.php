@@ -9,7 +9,7 @@ class AuthorController extends Controller
 {
     public function listAuthors()
     {
-        return Author::paginate(10);
+        return Author::simplePaginate(10);
     }
 
     public function listQuotesByAuthor($id)
@@ -22,7 +22,7 @@ class AuthorController extends Controller
         else 
         {
             return response()->json([
-                'message' => "Author with id $id not found.",
+                'error' => "Author with id $id not found.",
             ], 404);
         }
     }

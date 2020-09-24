@@ -13,12 +13,14 @@
 |
 */
 
-$router->get('/quotes', 'QuoteController@listQuotes');
-$router->get('/quotes/random', 'QuoteController@oneRandomQuote');
-$router->get('/quotes/{id}', 'QuoteController@listQuote');
+$router->group(['prefix'=> 'api/v1'], function () use($router) {
+    $router->get('/quotes', 'QuoteController@listQuotes');
+    $router->get('/quotes/random', 'QuoteController@oneRandomQuote');
+    $router->get('/quotes/{id}', 'QuoteController@listQuote');
 
-$router->get('/categories', 'CategoryController@listCategories');
-$router->get('/categories/{category}/quotes', 'CategoryController@listQuotesByCategory');
+    $router->get('/categories', 'CategoryController@listCategories');
+    $router->get('/categories/{category}/quotes', 'CategoryController@listQuotesByCategory');
 
-$router->get('/authors', 'AuthorController@listAuthors');
-$router->get('/authors/{id}/quotes', 'AuthorController@listQuotesByAuthor');
+    $router->get('/authors', 'AuthorController@listAuthors');
+    $router->get('/authors/{id}/quotes', 'AuthorController@listQuotesByAuthor');
+});
