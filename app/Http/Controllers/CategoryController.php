@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function listCategories()
     {
-        return Category::all()->simplePaginate(10);
+        return Category::simplePaginate(10);
     }
 
     public function listQuotesByCategory($category)

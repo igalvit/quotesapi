@@ -14,7 +14,6 @@ class AuthorController extends Controller
 
     public function listQuotesByAuthor($id)
     {
-        $authorExists = Author::findOrFail($id)->id;
         return $quotes = Author::findOrFail($id)->quotesSaid()->simplePaginate(10);
     }
 }
