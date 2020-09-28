@@ -23,7 +23,7 @@ class QuoteTest extends TestCase
             ->seeJsonStructure([
             'id', 'quote', 'author', 'category'
         ]);
-    $this->assertEquals(200, $this->response->status());
+        $this->assertEquals(200, $this->response->status());
 
     }
 

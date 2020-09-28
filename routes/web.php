@@ -25,7 +25,12 @@ $router->group(['prefix'=> 'api/v1'], function () use($router) {
 
     $router->get('/categories', 'CategoryController@listCategories');
     $router->get('/categories/{category}/quotes', 'CategoryController@listQuotesByCategory');
+    $router->post('/categories/create', 'CategoryController@createCategory');
+    $router->get('/categories/{id}/delete', 'CategoryController@deleteCategory');
+
 
     $router->get('/authors', 'AuthorController@listAuthors');
     $router->get('/authors/{id}/quotes', 'AuthorController@listQuotesByAuthor');
+    $router->post('/authors/create', 'AuthorController@createAuthor');
+    $router->get('/authors/{id}/delete', 'AuthorController@deleteCategory');
 });

@@ -16,4 +16,21 @@ class AuthorController extends Controller
     {
         return $quotes = Author::findOrFail($id)->quotesSaid()->simplePaginate(10);
     }
+
+    public function createAuthor(Request $request)
+    {
+        $this->validate($request, [
+            'author'=> 'required|unique:authors',
+        ]);
+        $data = new Author;
+        $data->author = $request->input('author');
+        $data -> save();
+        return response()->json($data, 201);
+    }
+
+    public function deleteAuthor(Request $request, $id)
+    {
+        Category::findOrFail($id)->delete();
+        return response()->json("Succesfully deleted author $id", 200);
+    }
 }

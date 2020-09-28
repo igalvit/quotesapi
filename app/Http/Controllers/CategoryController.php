@@ -17,4 +17,21 @@ class CategoryController extends Controller
         $categoryExists = Category::where('category','=', $category)->firstOrFail();
         return $quotes = Category::find($categoryExists->id)->phrases()->simplePaginate(10);
     }
+
+    public function createCategory(Request $request)
+    {
+        $this->validate($request, [
+            'category'=> 'required|unique:categories',
+        ]);
+        $data = new Category;
+        $data->category = $request->input('category');
+        $data -> save();
+        return response()->json($data, 201);
+    }
+
+    public function deleteCategory(Request $request, $id)
+    {
+        Category::findOrFail($id)->delete();
+        return response()->json("Succesfully deleted category $id", 200);
+    }
 }

@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Quote extends Model
 {
+    use SoftDeletes;
+
     protected $hidden = array('author_id', 'category_id', 'created_at', 'updated_at');
-    
+
     public function author()
     {
         return $this->belongsTo('App\Models\Author');
