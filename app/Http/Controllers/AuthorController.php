@@ -33,4 +33,16 @@ class AuthorController extends Controller
         Category::findOrFail($id)->delete();
         return response()->json("Succesfully deleted author $id", 200);
     }
+
+    public function updateAuthor(Request $request, $id)
+    {
+        $this->validate($request, [
+            'author'=> 'required|unique:authors',
+        ]);
+        $data = Author::findOrFail($id);
+        $data->category = $request->input('author');
+        $data->update();
+        return response()->json($data, 200);
+
+    }
 }

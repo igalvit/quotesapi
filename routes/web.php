@@ -22,15 +22,19 @@ $router->group(['prefix'=> 'api/v1'], function () use($router) {
     $router->get('/quotes', 'QuoteController@listQuotes');
     $router->get('/quotes/random', 'QuoteController@oneRandomQuote');
     $router->get('/quotes/{id}', 'QuoteController@listQuote');
+    $router->get('/quotes/{id}/delete', 'QuoteController@deleteQuote');
+    $router->post('/quotes/create', 'QuoteController@createQuote');
+    $router->put('/quotes/{id}/update', 'QuoteController@updateQuote');
 
     $router->get('/categories', 'CategoryController@listCategories');
     $router->get('/categories/{category}/quotes', 'CategoryController@listQuotesByCategory');
-    $router->post('/categories/create', 'CategoryController@createCategory');
     $router->get('/categories/{id}/delete', 'CategoryController@deleteCategory');
-
+    $router->post('/categories/create', 'CategoryController@createCategory');
+    $router->put('/categories/{id}/update', 'CategoryController@updateCategory');
 
     $router->get('/authors', 'AuthorController@listAuthors');
     $router->get('/authors/{id}/quotes', 'AuthorController@listQuotesByAuthor');
+    $router->get('/authors/{id}/delete', 'AuthorController@deleteAuthor');
     $router->post('/authors/create', 'AuthorController@createAuthor');
-    $router->get('/authors/{id}/delete', 'AuthorController@deleteCategory');
+    $router->put('/authors/{id}/update', 'AuthorController@updateAuthor');
 });

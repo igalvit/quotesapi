@@ -34,4 +34,16 @@ class CategoryController extends Controller
         Category::findOrFail($id)->delete();
         return response()->json("Succesfully deleted category $id", 200);
     }
+
+    public function updateCategory(Request $request, $id)
+    {
+        $this->validate($request, [
+            'category'=> 'required|unique:categories',
+        ]);
+        $data = Category::findOrFail($id);
+        $data->category = $request->input('category');
+        $data->update();
+        return response()->json($data, 200);
+
+    }
 }

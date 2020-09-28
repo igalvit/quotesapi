@@ -9,7 +9,7 @@ class Quote extends Model
 {
     use SoftDeletes;
 
-    protected $hidden = array('author_id', 'category_id', 'created_at', 'updated_at');
+    protected $hidden = array('author_id', 'category_id', 'created_at', 'updated_at', 'deleted_at');
 
     public function author()
     {
