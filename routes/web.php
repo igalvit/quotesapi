@@ -19,6 +19,13 @@ $router->get('/', function () {
     return redirect('doc.html');
 });
 $router->group(['prefix'=> 'api/v1'], function () use($router) {
+
+    $router->post('register', 'AuthController@register');
+    $router->post('login', 'AuthController@login');
+});
+
+$router->group(['prefix'=>'api/v1', 'middleware' => 'auth'], function () use($router) {
+
     $router->get('/quotes', 'QuoteController@listQuotes');
     $router->get('/quotes/random', 'QuoteController@oneRandomQuote');
     $router->get('/quotes/{id}', 'QuoteController@listQuote');
@@ -37,4 +44,8 @@ $router->group(['prefix'=> 'api/v1'], function () use($router) {
     $router->get('/authors/{id}/delete', 'AuthorController@deleteAuthor');
     $router->post('/authors/create', 'AuthorController@createAuthor');
     $router->put('/authors/{id}/update', 'AuthorController@updateAuthor');
+
+    $router->post('logout', 'AuthController@logout');
+    $router->post('refresh', 'AuthController@refresh');
+    $router->get('me', 'AuthController@me');
 });
