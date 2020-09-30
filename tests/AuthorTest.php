@@ -2,6 +2,8 @@
 
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
 
 class AuthorTest extends TestCase
 {
@@ -13,13 +15,15 @@ class AuthorTest extends TestCase
 
     public function testGetAuthors()
     {
-        $response = $this->json('GET', 'api/v1/authors');
+        $this->user = User::factory()->make();
+        $response = $this->actingAs($this->user)->json('GET', 'api/v1/authors');
         $this->assertEquals(200, $this->response->status());
     }
 
     public function testGetOneAuthor()
     {
-        $response = $this->json('GET', 'api/v1/authors/1/quotes')
+        $this->user = User::factory()->make();
+        $response = $this->actingAs($this->user)->json('GET', 'api/v1/authors/1/quotes')
             ->seeJson([
                 'current_page' => 1,
             ]);
@@ -28,7 +32,8 @@ class AuthorTest extends TestCase
     }
     public function testGetIncorrectAuthor()
     {
-        $response = $this->json('GET', 'api/v1/authors/noExists/quotes')
+        $this->user = User::factory()->make();
+        $response = $this->actingAs($this->user)->json('GET', 'api/v1/authors/noExists/quotes')
             ->seeJson([
                 'message' => "No data found.",
             ]);

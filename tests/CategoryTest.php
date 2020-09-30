@@ -2,6 +2,7 @@
 
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use App\Models\User;
 
 class CategoryTest extends TestCase
 {
@@ -13,13 +14,15 @@ class CategoryTest extends TestCase
 
     public function testGetCategories()
     {
-        $response = $this->json('GET', 'api/v1/categories');
+        $this->user = User::factory()->make();
+        $response = $this->actingAs($this->user)->json('GET', 'api/v1/categories');
         $this->assertEquals(200, $this->response->status());
     }
 
     public function testGetQuotesFromOneCategory()
     {
-        $response = $this->json('GET', 'api/v1/categories/age/quotes')
+        $this->user = User::factory()->make();
+        $response = $this->actingAs($this->user)->json('GET', 'api/v1/categories/age/quotes')
             ->seeJson([
                 'current_page' => 1,
             ]);
@@ -28,7 +31,8 @@ class CategoryTest extends TestCase
     }
     public function testGetQuotesFromOneIncorrectCategory()
     {
-        $response = $this->json('GET', 'api/v1/categories/ages/quotes')
+        $this->user = User::factory()->make();
+        $response = $this->actingAs($this->user)->json('GET', 'api/v1/categories/ages/quotes')
             ->seeJson([
                 'message' => "No data found.",
             ]);

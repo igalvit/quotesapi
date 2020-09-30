@@ -2,6 +2,8 @@
 
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use App\Models\Quote;
+use App\Models\User;
 
 class QuoteTest extends TestCase
 {
@@ -13,13 +15,15 @@ class QuoteTest extends TestCase
 
     public function testGetAllQuotes()
     {
-        $response = $this->json('GET', 'api/v1/quotes');
+        $this->user = User::factory()->make();
+        $response = $this->actingAs($this->user)->json('GET', 'api/v1/quotes');
         $this->assertEquals(200, $this->response->status());
     }
 
     public function testGetOneRandomQuote()
     {
-        $response = $this->json('GET', 'api/v1/quotes/random')
+        $this->user = User::factory()->make();
+        $response = $this->actingAs($this->user)->json('GET', 'api/v1/quotes/random')
             ->seeJsonStructure([
             'id', 'quote', 'author', 'category'
         ]);
@@ -29,7 +33,8 @@ class QuoteTest extends TestCase
 
     public function testGetOneExistingQuote()
     {
-        $response = $this->json('GET', 'api/v1/quotes/1')
+        $this->user = User::factory()->make();
+        $response = $this->actingAs($this->user)->json('GET', 'api/v1/quotes/1')
             ->seeJsonStructure([
                 'id', 'quote', 'author', 'category'
             ]);
@@ -39,11 +44,18 @@ class QuoteTest extends TestCase
 
     public function testGetOneIncorrectQuote()
     {
-        $response = $this->json('GET', 'api/v1/quotes/InexistentQuote')
+        $this->user = User::factory()->make();
+        $response = $this->actingAs($this->user)->json('GET', 'api/v1/quotes/InexistentQuote')
             ->seeJson([
                 'message' => "No data found.",
             ]);
         $this->assertEquals(200, $this->response->status());
 
+    }
+//CAMBIAR NO SIRVE
+    public function testEmptyAuthorQuote()
+    {
+        $quote = new Quote;
+        $this->assertEquals(null, $quote->toArray()["author"]);
     }
 }
